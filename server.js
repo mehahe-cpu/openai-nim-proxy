@@ -228,6 +228,21 @@ app.post('/v1/chat/completions', async (req, res) => {
   }
 });
 
+// Root endpoint handler to provide instructions
+app.get('/', (req, res) => {
+  res.json({
+    service: 'OpenAI to NVIDIA NIM Proxy',
+    status: 'running',
+    message: 'This is a reverse proxy. Use this base URL in Janitor AI Proxy settings.',
+    endpoints: {
+      health: '/health',
+      models: '/v1/models',
+      chat: '/v1/chat/completions'
+    },
+    instructions: 'In Janitor AI: Go to API Settings → Proxy → Add Configuration → Paste this URL as API URL'
+  });
+});
+
 // Catch-all for unsupported endpoints
 app.all('*', (req, res) => {
   res.status(404).json({
